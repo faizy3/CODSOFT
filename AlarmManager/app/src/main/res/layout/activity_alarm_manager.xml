@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AlarmManagerActivity"
+    >
+    <include layout="@layout/alarm_manager_layout"
+        android:visibility="gone"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Alarm Manager"
+        android:textSize="30sp"
+        android:textColor="@color/teal_700"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:id="@+id/title"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/amrecylcerview"
+        android:layout_below="@+id/title"/>
+
+
+</RelativeLayout>
