@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Dashboard">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Today,Tasks"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="@color/teal_700"
+        android:textAlignment="center"
+        android:layout_marginTop="10dp"
+        android:id="@+id/Tasktxt"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Tasktxt"
+        android:id="@+id/taskrecyclerview" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add new Task"
+        android:textSize="20sp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        app:cornerRadius = "25dp"
+        android:backgroundTint="@color/teal_700"
+        android:id="@+id/btnAddNewTask"
+        />
+
+
+</RelativeLayout>
