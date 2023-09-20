@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@drawable/backgroudquote1"
+    android:layout_margin="0dp">
+    <TextView
+        android:id="@+id/titletext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:textColor="@color/black"
+        android:text="Quote Of The Day"
+        android:textStyle="bold"
+        android:gravity="center_horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:cardCornerRadius="20dp"
+        android:layout_margin="50dp"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_format_quote_24"
+                android:paddingTop="15dp"
+                android:paddingStart="15dp"
+                android:id="@+id/imgeViewQuote"/>
+
+            <TextView
+                android:id="@+id/quotestextview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imgeViewQuote"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:text="hello"
+                android:textColor="@color/white"
+                android:textSize="25sp" />
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/redheart"
+                    android:background="@android:color/transparent"
+                    android:id="@+id/imgbtnFavView"
+                    android:layout_marginEnd="50dp"
+                    android:layout_alignParentLeft="true"
+                    android:padding="20dp"/>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_favorite_border_24"
+                    android:background="@android:color/transparent"
+                    android:id="@+id/imgbtnFav"
+                    android:layout_marginEnd="50dp"
+                    android:layout_centerInParent="true"/>
+                <ImageButton
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/baseline_share_24"
+                    android:background="@android:color/transparent"
+                    android:id="@+id/imgbtnShare"
+                    android:layout_alignParentRight="true"
+                    android:padding="20dp"/>
+            </RelativeLayout>
+
+
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
