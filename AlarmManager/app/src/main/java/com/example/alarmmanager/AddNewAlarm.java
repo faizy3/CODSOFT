@@ -23,13 +23,11 @@ import java.util.Calendar;
 public class AddNewAlarm extends AppCompatActivity {
     Button btnAdd_Delete;
     TimePicker timePicker;
-    TextView result;
     EditText label;
     CardView cardViewUpdate;
     ImageButton btncancel,btnupdate;
     MyDBHelper helper = new MyDBHelper(this);
     int alarmId;
-    private AlarmManagerActivity alarmManagerActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +60,6 @@ public class AddNewAlarm extends AppCompatActivity {
                     upDateAlarm(alarm, alarmId);
                     //shedule alarm called when user add Update alarm into DB
                      scheduleAlarm(alarm , alarmId);
-                     //refresh recyclerView after update data
                 }
             });
 
@@ -98,24 +95,12 @@ public class AddNewAlarm extends AppCompatActivity {
                     //shedule alarm called when user add new alarm into DB and return time that display in Toast msg
                     scheduleAlarm(alarm,alarmId);
                     Toast.makeText(AddNewAlarm.this, "New Alarm inseted into database", Toast.LENGTH_LONG).show();
-                    //Toast.makeText(AddNewAlarm.this, "Ring in: "+displaytime, Toast.LENGTH_LONG).show();
                     Intent i = new Intent(AddNewAlarm.this , AlarmManagerActivity.class);
                     startActivity(i);
                 }
             });
 
         }
-    }
-
-    private void convertMSToHourAndMin(long timeInMS) {
-        long seconds =  timeInMS / 1000;
-        long minute = seconds / 60 ;
-        long hour = minute / 60 ;
-
-        String hourInString = String.valueOf(hour);
-        String minInString = String.valueOf(minute);
-        Toast.makeText(this, "ring in "+hourInString+":"+minInString, Toast.LENGTH_SHORT).show();
-
     }
 
     public void scheduleAlarm(Alarm alarm , int alarmId) {
@@ -151,31 +136,6 @@ public class AddNewAlarm extends AppCompatActivity {
         }else {
             Toast.makeText(AddNewAlarm.this, "Ring in "+hours+":"+minutes, Toast.LENGTH_LONG).show();
         }
-    }
-    //create second method with diff. parameter to calling from myadapter class in togglebutton
-    public void scheduleAlarm(Context context,AlarmManager alarmManager, int alarmId , String label , int hour, int minute) {
-       // AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, MyBroadcastReceiver.class);
-        intent.putExtra("id" , alarmId);
-        intent.putExtra("label" , label);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        // Calculate the alarm time based on the selected hour and minute
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, hour);
-        calendar.set(Calendar.MINUTE, minute);
-        calendar.set(Calendar.SECOND, 0);
-
-        // If the alarm time is in the past, add one day to it
-        if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
-            calendar.add(Calendar.DAY_OF_YEAR, 1);
-        }
-
-        // Set the alarm to trigger at the specified time
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-
-
-
     }
     private void upDateAlarm(Alarm alarm, int id ){
         //setting values to alarm class for after get values from alarm class to put in database

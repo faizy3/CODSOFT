@@ -3,6 +3,7 @@ package com.example.alarmmanager;
 import static android.content.Context.NOTIFICATION_SERVICE;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -32,7 +33,6 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
     private static final String ALARM_CHANNEL_ID = "alarm_channel";
     public static NotificationManagerCompat notificationManager;
     private static final  long SnoozeCountDown = 1000L *  60;
-    private Handler autoSnoozeHandler = new Handler() ;
     private static int counter = 2;
     private static String  label;
     public static Vibrator vibrator;
@@ -83,30 +83,16 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
         //when notification fires then ringtone starts
         ringtone = RingtoneManager.getRingtone(context, Settings.System.DEFAULT_ALARM_ALERT_URI);
         vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-
-
         //after given time ringtone will be stop and autosnooze alarm
         cancelOrSnoozeAlarm(context , alarmId);
     }
-//    private void getAutoSnooze(Context context  , int alarmId){
-//        autoSnoozeHandler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                ringtone.stop();
-//                notificationManager.cancel(alarmId);
-//                //auto snooze alarm if user dont click on Stop/snooze actionbutton
-//                autoSnoozeAlarm( context, alarmId);
-//
-//            }
-//        } , SnoozeCountDown );
-//    }
     private void cancelOrSnoozeAlarm(Context context , int alarmId){
         countDownTimer = new CountDownTimer(SnoozeCountDown, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 ringtone.play();
-                long [] pattern = {0 , 200 , 500 , 2000};
-                vibrator.vibrate(pattern , 0);
+                long [] vibratePattern = {0 , 200 , 1000 , 5000};
+                vibrator.vibrate(vibratePattern , -1);
             }
 
             @Override
@@ -117,29 +103,24 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
                 if(counter>0){
                     //this method call and get autoSnooze schedule if user dont click
                     autoSnoozeAlarm(context , alarmId);
-                    Toast.makeText(context, "alarm Snooze for 1 minute counter: "+counter, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "alarm Snooze for 10 minute counter: "+counter, Toast.LENGTH_SHORT).show();
                     counter -- ;
                 }else {
                     Toast.makeText(context, "alarm cancel and no more longer ", Toast.LENGTH_SHORT).show();
                 }
-
-
             }
 
         }.start();
     }
     //this method is called when user dont click
     private void autoSnoozeAlarm(Context context, int alarmId) {
-
-        long snoozetime = System.currentTimeMillis() + ( 1 * 60 * 1000);
+        long snoozetime = System.currentTimeMillis() + ( 10 * 60 * 1000);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent snoozeIntent = new Intent(context , MyBroadcastReceiver.class);
         snoozeIntent.putExtra("label" , label);
         PendingIntent snoozePendingIntent = PendingIntent.getBroadcast(context , alarmId , snoozeIntent , PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.setExact(AlarmManager.RTC_WAKEUP , snoozetime , snoozePendingIntent);
     }
-
-
     //this method is called when user click on SNOOZE actionbutton on the notification
     private PendingIntent snoozeAlarm(Context context, int alarmId) {
         //create intent for snooze alarm

@@ -20,24 +20,19 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
-    Button btnsetTime;
-    EditText editText;
     TextView currentTime;
-    TimePicker timePicker ;
     ImageButton imgbtnAdd , imgbtnsetting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //editText = findViewById(R.id.edittxtsetTime);
-        //btnsetTime = findViewById(R.id.btnsetTime);
         currentTime = findViewById(R.id.currenttime);
         imgbtnAdd = findViewById(R.id.imgbtnAdd);
         imgbtnsetting = findViewById(R.id.imgbtnSetting);
 
 
-
+        //show current time with running seconds
         Handler handler = new Handler();
         Runnable  UpdateTimeRunnable = new Runnable() {
             @Override
@@ -65,26 +60,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
-
-
-
-
-
-//        btnsetTime.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                int time = Integer.parseInt( editText.getText().toString());
-//                AlarmManagerActivity alarmManager = (AlarmManagerActivity) getSystemService(ALARM_SERVICE);
-//                long triggerTime = System.currentTimeMillis()+(time-1000);
-//
-//                Intent i = new Intent(MainActivity.this , MyBroadcastReceiver.class);
-//                PendingIntent pi = PendingIntent.getBroadcast(MainActivity.this, 100, i, PendingIntent.FLAG_UPDATE_CURRENT);
-//                alarmManager.set(AlarmManagerActivity.RTC_WAKEUP, triggerTime, pi);
-//            }
-//        });
-
-
-
     }
 }

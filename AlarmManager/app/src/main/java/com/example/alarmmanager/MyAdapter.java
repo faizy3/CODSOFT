@@ -112,7 +112,6 @@ public class MyAdapter extends RecyclerView.Adapter {
 
     public class alarmViewHolder extends RecyclerView.ViewHolder{
         TextView alarmTime,label;
-        ToggleButton toggleButton;
         Switch btnSwitch;
 
         public alarmViewHolder(@NonNull View v) {
@@ -135,9 +134,6 @@ public class MyAdapter extends RecyclerView.Adapter {
                     i.putExtra("isUpdate" , isUpdate);
                     context.startActivity(i);
                     ((Activity) getContext()).finish();
-
-
-
                 }
             });
 

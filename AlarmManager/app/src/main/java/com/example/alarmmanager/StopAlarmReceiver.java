@@ -10,7 +10,7 @@ public class StopAlarmReceiver extends BroadcastReceiver {
         if("STOP_ALARM".equals(intent.getAction())){
             int alarmId = intent.getExtras().getInt("id");
 
-            //this will stop ringtone if user press notification STOP action button
+
             if(MyBroadcastReceiver.ringtone!=null){
                 MyBroadcastReceiver.ringtone.stop();
             }

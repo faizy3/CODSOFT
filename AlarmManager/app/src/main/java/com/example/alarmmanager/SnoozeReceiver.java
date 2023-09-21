@@ -17,18 +17,21 @@ class SnoozeReceiver extends BroadcastReceiver {
             alarmId = intent.getExtras().getInt("id");
             label = intent.getExtras().getString("label");
 //            // snooze time 10 minute
-            long snoozetime = System.currentTimeMillis() + (1 * 60 * 1000);
+            long snoozetime = System.currentTimeMillis() + (10 * 60 * 1000);
             //this ringtone will be stop if user press snooze button in notification
             if(MyBroadcastReceiver.ringtone!=null){
                 MyBroadcastReceiver.ringtone.stop();
 
             }
+            //stop vibrator if running
             if(MyBroadcastReceiver.vibrator !=null){
                 MyBroadcastReceiver.vibrator.cancel();
             }
+            //cancel notification if already appear
             if(MyBroadcastReceiver.notificationManager != null){
                 MyBroadcastReceiver.notificationManager.cancel(alarmId);
             }
+            //when snooze alarm then coundown timer also stop for stopping ringing and vibration
             if(MyBroadcastReceiver.countDownTimer !=null){
                 MyBroadcastReceiver.countDownTimer.cancel();
             }
@@ -37,8 +40,6 @@ class SnoozeReceiver extends BroadcastReceiver {
             if(alarmId != -1){
                 //Alarm snoozeAlarm = new Alarm();
                 setSnoozeAlarm(context, alarmId , snoozetime);
-
-
             }
 
         }

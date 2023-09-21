@@ -30,34 +30,20 @@ public class AlarmManagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_manager);
         recyclerView = findViewById(R.id.amrecylcerview);
+        //creating new instance of MyDbHelper class
+        MyDBHelper helper = new MyDBHelper(this);
+        //getAlarmDetail method fetch data from DB and store in arrayList and return that arraylist
+        list = helper.getalarmdetail();
+        myadapter  =  new MyAdapter(this,list);
+        if(list.isEmpty()){
+            Toast.makeText(this, "List is empty please add Alarm first", Toast.LENGTH_SHORT).show();
+        }else {
+            myadapter.notifyDataSetChanged();
+        }
+        //set list to adapter and bind view
+        LinearLayoutManager manager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        recyclerView.setLayoutManager(manager);
 
-          list = new ArrayList<>();
-
-            Alarm alarm ;
-            list.clear();
-            MyDBHelper helper = new MyDBHelper(this);
-            String qry = "SELECT * FROM " + "Alarm" ;
-            SQLiteDatabase db = helper.getWritableDatabase();
-            Cursor cursor  =db.rawQuery(qry , null);
-            while(cursor.moveToNext()){
-                alarm = new Alarm();
-                alarm.setId(cursor.getInt(0));
-                alarm.setLabel(cursor.getString(1));
-                alarm.setHour(cursor.getInt(2));
-                alarm.setMinute(cursor.getInt(3));
-                alarm.setStatus(cursor.getInt(4) !=0  );
-                list.add(alarm);
-            }
-             myadapter  =  new MyAdapter(this,list);
-            if(list.isEmpty()){
-                Toast.makeText(this, "List is empty please add Alarm first", Toast.LENGTH_SHORT).show();
-            }else {
-                myadapter.notifyDataSetChanged();
-            }
-            //set list to adapter and bind view
-            LinearLayoutManager manager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
-            recyclerView.setLayoutManager(manager);
-
-            recyclerView.setAdapter(myadapter);
+        recyclerView.setAdapter(myadapter);
     }
 }

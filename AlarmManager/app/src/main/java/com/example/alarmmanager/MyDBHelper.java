@@ -56,7 +56,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
         db.close();
         return generatedId;
     }
-    public List<Alarm> getalarmdetail(){
+    public ArrayList<Alarm> getalarmdetail(){
         ArrayList<Alarm> alarmArrayList = new ArrayList<>();
         String qry = "SELECT * FROM " + TABLE_NAME ;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -65,11 +65,11 @@ public class MyDBHelper extends SQLiteOpenHelper {
             Alarm alarm = new Alarm();
             alarm.setId(cursor.getInt(0));
             alarm.setLabel(cursor.getString(1));
-            alarm.setAlarm_time(cursor.getString(2));
-            alarm.setStatus(cursor.getInt(3) !=0  );
+            alarm.setHour(cursor.getInt(2));
+            alarm.setMinute(cursor.getInt(3));
+            alarm.setStatus(cursor.getInt(4) !=0  );
             alarmArrayList.add(alarm);
         }
-
         return alarmArrayList;
     }
     public void updateStatus(Alarm alarm ){
